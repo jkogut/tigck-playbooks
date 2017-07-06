@@ -1,0 +1,9 @@
+---
+
+- hosts: server
+  become: true
+  vars:
+    metrics_db: metrics
+
+  roles:
+    - influxDB
