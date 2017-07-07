@@ -1,0 +1,17 @@
+## Grafana
+
+
+- name: Install grafana from url and packages for server side image rendering
+  yum: name="{{item}}" state=present
+  with_items:
+    - "{{grafana_url}}"
+    - fontconfig
+    - freetype*
+    - urw-fonts
+
+- name: Restart grafana
+  shell: "{{item}}"
+  with_items:
+    - /bin/systemctl daemon-reload
+    - /bin/systemctl enable grafana-server.service
+    - /bin/systemctl start grafana-server.service
