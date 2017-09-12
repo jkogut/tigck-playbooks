@@ -29,6 +29,6 @@
     - /bin/systemctl start influxdb.service
 
 - name: Create testdb in influxDB
-  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{metrics_db}}"
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{test_metrics_db_name}}"
   tags:
     - create-testdb
