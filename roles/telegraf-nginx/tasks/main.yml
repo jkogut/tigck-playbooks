@@ -1,0 +1,21 @@
+## Telegraf                                                                                                     
+     
+- name: Install the telegraf rpm from a remote repo
+  yum:
+    name: "{{telegraf_url}}"
+    state: present
+
+- name: Fetch config
+  template: src=nginx_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
+  notify:
+    - restart telegraf
+  tags:
+    - config
+
+- name: Enabled telegraf service and start it
+  shell: "{{item}}"
+  with_items:
+    - systemctl enable telegraf.service
+    - systemctl start telegraf.service
+  tags:
+    - startup
