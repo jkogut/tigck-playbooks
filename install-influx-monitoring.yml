@@ -1,11 +1,30 @@
 ---
 
-- hosts: server
+## 
+## Assumes installation of Grafana & InfluxDB and the same host 
+##
+
+- hosts: influxdb-grafana-host
   become: true
   vars:
     grafana_url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.3.1-1.x86_64.rpm
-    metrics_db: metrics
-    
+    test_metrics_db_name: test_metrics
+
   roles:
     - influxDB
     - grafana
+
+
+##
+## Playbook for nginx servers, assumes InfluxDB & Grafana installed  
+##
+
+- hosts: nginx-servers
+  become: true
+  vars:
+    influxdb_host: influxdb-grafana-host
+    server_group_name: web-cluster
+    nginx_metrics_db_name: nginx_metrics
+
+  roles:
+    - telegraf-nginx
