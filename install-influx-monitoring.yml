@@ -4,10 +4,14 @@
 ## Assumes installation of Grafana & InfluxDB and the same host 
 ##
 
+## 
+## Check for the newest grafana at: https://grafana.com/grafana/download
+##
+
 - hosts: influxdb-grafana-host
   become: true
   vars:
-    grafana_url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.3.1-1.x86_64.rpm
+    grafana_url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.4.3-1.x86_64.rpm
     test_metrics_db_name: test_metrics
 
   roles:
