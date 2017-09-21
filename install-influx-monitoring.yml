@@ -32,3 +32,18 @@
 
   roles:
     - telegraf-nginx
+
+    
+##
+## Playbook for nginx servers, assumes InfluxDB & Grafana installed  
+##
+
+- hosts: apache-servers
+  become: true
+  vars:
+    influxdb_host: influxdb-grafana-host
+    server_group_name: web-cluster
+    apache_metrics_db_name: apache_metrics
+
+  roles:
+    - telegraf-apache
