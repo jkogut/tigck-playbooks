@@ -1,0 +1,24 @@
+## Telegraf installation for centos
+
+- name: Install libselinux-python
+  yum: name=libselinux-python state=present
+
+- name: Create a influxdb.repo file
+  file: path=/etc/yum.repos.d/influxdb.repo state=touch
+
+- name: Update /etc/yum.repos.d/influxdb.repo file
+  blockinfile:
+    dest: /etc/yum.repos.d/influxdb.repo
+    content: |
+      
+      [influxdb]
+      name = InfluxDB Repository - RHEL \$releasever
+      baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+      enabled = 1
+      gpgcheck = 1
+      gpgkey = https://repos.influxdata.com/influxdb.key  
+
+- name: Install the telegraf rpm from a remote repo
+  yum:
+    name: telegraf
+    state: present
