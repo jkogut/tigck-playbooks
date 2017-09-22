@@ -1,4 +1,4 @@
-## Telegraf                                                                                                     
+## Telegraf main task playbook
 
 - include: centos7.yml
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version > '6'
@@ -21,8 +21,8 @@
   tags:
     - startup
 
-# - name: Create testdb in influxDB
-#   shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
-#   delegate_to: "{{influxdb_host}}"
-#   tags:
-#     - create-nginx-metrics
+- name: Create testdb in influxDB
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
+  delegate_to: "{{influxdb_host}}"
+  tags:
+    - create-nginx-metrics
