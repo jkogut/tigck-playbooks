@@ -1,0 +1,28 @@
+## Telegraf main task playbook
+
+- include: centos7.yml
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version > '6'
+
+- include: ubuntu16.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == 'xenial'
+
+- name: Fetch config
+  template: src=apache_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
+  notify:
+    - restart telegraf
+  tags:
+    - config
+
+- name: Enabled telegraf service and start it
+  shell: "{{item}}"
+  with_items:
+    - systemctl enable telegraf.service
+    - systemctl start telegraf.service
+  tags:
+    - startup
+
+- name: Create testdb in influxDB
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
+  delegate_to: "{{influxdb_host}}"
+  tags:
+    - create-nginx-metrics

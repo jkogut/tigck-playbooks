@@ -1,0 +1,17 @@
+## Telegraf installation for Ubuntu 16.04
+
+- name: Make sure Apt-Transport-HTTPS is present
+  apt: "name=apt-transport-https state=present"
+
+- name: Update apt repo for Ubuntu
+  shell: "{{item}}"
+  with_items:
+    - curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+    - source /etc/lsb-release
+    - echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+
+- name: Update apt cache.
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install Telegraf
+  apt: "name=telegraf state=present"
