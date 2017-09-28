@@ -7,7 +7,7 @@
   when: ansible_distribution == "Ubuntu" and ansible_distribution_release == 'xenial'
 
 - name: Fetch config
-  template: src=apache_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
+  template: src=common_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
   notify:
     - restart telegraf
   tags:
@@ -22,7 +22,7 @@
     - startup
 
 - name: Create testdb in influxDB
-  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{common_metrics_db_name}}"
   delegate_to: "{{influxdb_host}}"
   tags:
-    - create-nginx-metrics
+    - create-common-metrics
