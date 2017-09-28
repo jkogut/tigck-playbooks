@@ -24,5 +24,6 @@
 - name: Create testdb in influxDB
   shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{nginx_metrics_db_name}}"
   delegate_to: "{{influxdb_host}}"
+  when: nginx_metrics_db_name is defined
   tags:
     - create-nginx-metrics
