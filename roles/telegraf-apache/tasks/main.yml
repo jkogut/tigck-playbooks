@@ -24,5 +24,6 @@
 - name: Create testdb in influxDB
   shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
   delegate_to: "{{influxdb_host}}"
+  when: apache_metrics_db_name is defined
   tags:
     - create-apache-metrics
