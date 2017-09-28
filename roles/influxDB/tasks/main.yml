@@ -27,3 +27,9 @@
     - /bin/systemctl daemon-reload
     - /bin/systemctl enable influxdb.service
     - /bin/systemctl start influxdb.service
+
+- name: Create testdb in influxDB
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{test_metrics_db_name}}"
+  when: test_metrics_db_name is defined
+  tags:
+    - create-testdb
