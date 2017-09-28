@@ -25,4 +25,4 @@
   shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{apache_metrics_db_name}}"
   delegate_to: "{{influxdb_host}}"
   tags:
-    - create-nginx-metrics
+    - create-apache-metrics
