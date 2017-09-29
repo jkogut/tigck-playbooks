@@ -27,7 +27,7 @@
 
 [[outputs.influxdb]]
   urls = ["http://{{influxdb_host}}:8086"] # required
-  database = "{{apache_metrics_db_name}}" # required
+  database = "{{common_metrics_db_name}}" # required
   retention_policy = ""
   write_consistency = "any"
 
