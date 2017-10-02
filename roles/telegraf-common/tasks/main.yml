@@ -3,6 +3,9 @@
 - include: centos7.yml
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version > '6'
 
+- include: centos7.yml
+  when: ansible_distribution == "Red Hat Enterprise Linux" and ansible_distribution_major_version > '6'
+
 - include: ubuntu16.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_release == 'xenial'
 
