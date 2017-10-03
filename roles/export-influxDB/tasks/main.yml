@@ -1,0 +1,7 @@
+---
+
+- name: Export db
+  shell: influxd backup -database '{{dbname}}' /tmp/influx/'{{dbname}}'-dump
+
+- name: Copy it to remote server
+  shell: scp -r /tmp/influx/'{{dbname}}'-dump '{{login_at_server}}':'{{remote_path}}'
