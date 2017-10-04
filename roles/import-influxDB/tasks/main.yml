@@ -1,0 +1,10 @@
+---
+
+- name: Restore metadir
+  shell: influxd restore -metadir /var/lib/influxdb/meta /root/influx/'{{dbname}}'-dump
+
+- name: Restore db
+  shell: influxd restore -database '{{dbname}}' -datadir /var/lib/influxdb/data '{{remote_path}}'/'{{dbname}}'-dump
+
+- name: Chown influxdb:influxdb
+  shell: chown -R influxdb:influxdb /var/lib/influxdb
