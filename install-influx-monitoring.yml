@@ -35,7 +35,7 @@
 
     
 ##
-## Playbook for nginx servers, assumes InfluxDB & Grafana installed  
+## Playbook for apache servers, assumes InfluxDB & Grafana installed  
 ##
 
 - hosts: apache-servers
